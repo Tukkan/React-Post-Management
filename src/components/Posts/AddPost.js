@@ -9,29 +9,53 @@ class AddPost extends Component {
     this.state  = {
       showModal: false,
       title: "",
-      body: ""
+      body: "",
+      inputStarted: false,
+      formValid: false
     };
-    this.close            = this.close.bind(this);
-    this.open             = this.open.bind(this);
-    this.saveAndClose     = this.saveAndClose.bind(this);
-    this.handleFormChange = this.handleFormChange.bind(this);
+
+    this.closeModal         = this.closeModal.bind(this);
+    this.openModal          = this.openModal.bind(this);
+    this.saveAndClose       = this.saveAndClose.bind(this);
+    this.handleFormChange   = this.handleFormChange.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
   }
 
-  close() {
+  closeModal() {
     this.setState({ showModal: false });
+    this.resetFields();
   }
 
-  open() {
+  openModal() {
     this.setState({ showModal: true });
   }
 
   saveAndClose() {
+    if(!this.state.inputStarted || !this.state.title || !this.state.body) {
+      this.setState({
+        inputStarted: true
+      });
+      return;
+    }
+
     this.props.onSave(this.state.title, this.state.body);
+    this.resetFields();
+    this.closeModal();
+  }
+
+  resetFields() {
     this.setState({
       title: "",
-      body: ""
+      body: "",
+      inputStarted: false
     });
-    this.close();
+  }
+
+  getValidationState(field) {
+    const length = this.state[field].length;
+
+    if (this.state.inputStarted && length > 3) return 'success';
+    else if (this.state.inputStarted && length <= 3) return 'error';
   }
 
   handleFormChange(event) {
@@ -40,7 +64,8 @@ class AddPost extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
+      inputStarted: true
     });
   }
 
@@ -48,15 +73,15 @@ class AddPost extends Component {
   render() {
     return (
       <div>
-        <Button bsStyle="primary" onClick={this.open}>Add Post</Button>
+        <Button bsStyle="primary" onClick={this.openModal}>Add Post</Button>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Add Post</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
-              <FormGroup controlId="postTitle">
+              <FormGroup controlId="postTitle" validationState={this.getValidationState('title')}>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
                   type="text"
@@ -66,7 +91,7 @@ class AddPost extends Component {
                   onChange={this.handleFormChange}
                 />
               </FormGroup>
-              <FormGroup controlId="postBody">
+              <FormGroup controlId="postBody" validationState={this.getValidationState('body')}>
                 <ControlLabel>Body</ControlLabel>
                 <FormControl
                   componentClass="textarea"
@@ -79,7 +104,7 @@ class AddPost extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            <Button onClick={this.closeModal}>Close</Button>
             <Button bsStyle="primary" onClick={this.saveAndClose}>Save</Button>
           </Modal.Footer>
         </Modal>
