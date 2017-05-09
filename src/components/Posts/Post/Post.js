@@ -1,4 +1,5 @@
 import React from 'react';
+import './Post.scss';
 
 const Posts= props => (
   <div className="post">

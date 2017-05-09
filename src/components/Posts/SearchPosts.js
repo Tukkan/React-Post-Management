@@ -1,20 +1,10 @@
 import React from 'react';
-import Post from './Post';
+import { FormGroup, FormControl } from 'react-bootstrap';
 
-
-const PostsList = props => (
-  <div className="postList">
-    { props.data.length === 0 &&
-    <div>Fetching</div>
-    }
-    {
-      props.data.map(function(postData, index){
-        return (
-          <Post key={index} data={postData} />
-        )
-      })
-    }
-  </div>
+const SearchPosts = props => (
+  <FormGroup>
+    <FormControl type="text" placeholder="Filter..." onChange={props.onChange} />
+  </FormGroup>
 );
 
-export default PostsList;
+export default SearchPosts;
