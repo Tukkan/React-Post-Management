@@ -33,21 +33,27 @@ class PostsContainer extends Component {
 
   searchPost(event) {
     let inputValue = event.target.value;
-    let highlightRegExp = new RegExp("("+inputValue+")", "gi");
     let filteredData = this.state.originalData
-      .filter((post) => post.title.indexOf(inputValue) > -1)
+      .filter((post) => post.title.indexOf(inputValue) > -1 || post.body.indexOf(inputValue) > -1)
       .map((post) => {return {
         ...post,
-        title: post.title
-          .split(highlightRegExp)
-          .map((titlePart, idx) =>
-            <span key={idx} className={ titlePart === inputValue ? "highlight" : ""}>{titlePart}</span>
-          )
+        title: this.highlightData(post.title, inputValue),
+        body: this.highlightData(post.body, inputValue),
       }});
 
     this.setState({
       filteredData: filteredData
     })
+  }
+
+  highlightData(str, val) {
+    let highlightRegExp = new RegExp("("+val+")", "gi");
+
+    return str
+      .split(highlightRegExp)
+      .map((part, idx) =>
+        <span key={idx} className={ part === val ? "highlight" : ""}>{part}</span>
+      )
   }
 
   onPostSave(title, body){
