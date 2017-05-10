@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, FormControl, FormGroup, ControlLabel, FieldGroup } from 'react-bootstrap';
+import { Button, Modal, FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
 
 class AddPost extends Component {
   constructor(props){
@@ -113,7 +113,8 @@ class AddPost extends Component {
   }
 }
 
-AddPost.propTypes = {};
-AddPost.defaultProps = {};
+AddPost.propTypes = {
+  onSave: PropTypes.func.isRequired
+};
 
 export default AddPost;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormGroup, FormControl } from 'react-bootstrap';
 
 const SearchPosts = props => (
@@ -7,4 +8,9 @@ const SearchPosts = props => (
   </FormGroup>
 );
 
+SearchPosts.propTypes = {
+  onChange: PropTypes.func.isRequired
+};
+
 export default SearchPosts;
+

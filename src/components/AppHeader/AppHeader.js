@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PageHeader } from 'react-bootstrap'
 import './AppHeader.scss';
 
@@ -8,5 +9,9 @@ const AppHeader = props => (
     Welcome to React
   </PageHeader>
 );
+
+AppHeader.propTypes = {
+  logoSrc: PropTypes.string.isRequired
+};
 
 export default AppHeader;

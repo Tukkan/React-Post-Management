@@ -1,11 +1,11 @@
 import React from 'react';
 import './Post.scss';
+import { Panel } from 'react-bootstrap'
 
 const Posts= props => (
-  <div className="post">
-    <h3>{props.data.title}</h3>
-    <p>{props.data.body}</p>
-  </div>
+  <Panel className="post" header={props.data.title}>
+    {props.data.body}
+  </Panel>
 );
 
 export default Posts;

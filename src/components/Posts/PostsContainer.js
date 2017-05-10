@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import PostsList from './PostsList';
+import PostsList from './PostsList/PostsList';
 import AddPost from './AddPost';
 import SearchPosts from './SearchPosts';
 import 'whatwg-fetch';
@@ -11,10 +11,10 @@ class PostsContainer extends Component {
 
     this.state = {
       originalData: [],
-      filteredData: []
+      filteredData: [],
+      loading: true
     };
 
-    this.getPosts();
     this.searchPost = this.searchPost.bind(this);
     this.onPostSave = this.onPostSave.bind(this);
   }
@@ -26,14 +26,27 @@ class PostsContainer extends Component {
         let jsonReversed = json.reverse();
         this.setState({
           originalData: jsonReversed,
-          filteredData: jsonReversed.slice()
+          filteredData: jsonReversed.slice(),
+          loading: false
         })
+      })
+      .catch((err) => {
+
       })
   }
 
   searchPost(event) {
     let inputValue = event.target.value;
-    let filteredData = this.state.originalData
+    let filteredData;
+
+    if(!inputValue) {
+      this.setState({
+        filteredData: this.state.originalData.slice()
+      });
+      return;
+    }
+
+    filteredData = this.state.originalData
       .filter((post) => post.title.indexOf(inputValue) > -1 || post.body.indexOf(inputValue) > -1)
       .map((post) => {return {
         ...post,
@@ -72,6 +85,10 @@ class PostsContainer extends Component {
     })
   }
 
+  componentDidMount() {
+    this.getPosts();
+  }
+
   render() {
     return (
       <div className="posts">
@@ -83,7 +100,7 @@ class PostsContainer extends Component {
             <AddPost onSave={this.onPostSave} />
           </Col>
         </Row>
-        <PostsList data={this.state.filteredData} />
+        <PostsList loading={this.state.loading} data={this.state.filteredData} />
       </div>
     );
   }
