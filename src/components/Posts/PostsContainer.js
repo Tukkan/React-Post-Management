@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import PostsList from './PostsList/PostsList';
 import AddPost from './AddPost';
 import SearchPosts from './SearchPosts';
+import LoadError from './LoadError';
 import 'whatwg-fetch';
 
 class PostsContainer extends Component {
@@ -12,14 +13,20 @@ class PostsContainer extends Component {
     this.state = {
       originalData: [],
       filteredData: [],
-      loading: true
+      loading: false,
+      errorOccured: false
     };
 
+    this.getPosts   = this.getPosts.bind(this);
     this.searchPost = this.searchPost.bind(this);
     this.onPostSave = this.onPostSave.bind(this);
   }
 
   getPosts() {
+    this.setState({
+      loading: true
+    });
+
     fetch('http://jsonplaceholder.typicode.com/posts')
       .then((data) => data.json())
       .then((json) => {
@@ -27,11 +34,15 @@ class PostsContainer extends Component {
         this.setState({
           originalData: jsonReversed,
           filteredData: jsonReversed.slice(),
-          loading: false
+          loading: false,
+          errorOccured: false
         })
       })
       .catch((err) => {
-
+        this.setState({
+          errorOccured: true,
+          loading: false
+        })
       })
   }
 
@@ -101,6 +112,10 @@ class PostsContainer extends Component {
           </Col>
         </Row>
         <PostsList loading={this.state.loading} data={this.state.filteredData} />
+        {
+          this.state.errorOccured &&
+          <LoadError callback={this.getPosts} />
+        }
       </div>
     );
   }
