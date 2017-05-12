@@ -14,24 +14,18 @@ class AddPost extends Component {
       inputStarted: false,
       formValid: false
     };
-
-    this.closeModal         = this.closeModal.bind(this);
-    this.openModal          = this.openModal.bind(this);
-    this.saveAndClose       = this.saveAndClose.bind(this);
-    this.handleFormChange   = this.handleFormChange.bind(this);
-    this.getValidationState = this.getValidationState.bind(this);
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false });
     this.resetFields();
-  }
+  };
 
-  openModal() {
+  openModal = () => {
     this.setState({ showModal: true });
-  }
+  };
 
-  saveAndClose() {
+  saveAndClose = () => {
     if(!this.state.inputStarted || !this.state.title || !this.state.body) {
       this.setState({
         inputStarted: true
@@ -42,24 +36,24 @@ class AddPost extends Component {
     this.props.onSave(this.state.title, this.state.body);
     this.resetFields();
     this.closeModal();
-  }
+  };
 
-  resetFields() {
+  resetFields = () => {
     this.setState({
       title: "",
       body: "",
       inputStarted: false
     });
-  }
+  };
 
-  getValidationState(field) {
+  getValidationState = (field) => {
     const length = this.state[field].length;
 
     if (this.state.inputStarted && length > 3) return 'success';
     else if (this.state.inputStarted && length <= 3) return 'error';
   }
 
-  handleFormChange(event) {
+  handleFormChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;

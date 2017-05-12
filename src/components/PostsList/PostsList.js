@@ -16,8 +16,7 @@ const renderError = function(isLoading) {
       </div>
     )
   }
-}
-
+};
 
 const PostsList = props => (
     <div className="postList">

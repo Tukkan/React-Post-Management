@@ -18,13 +18,9 @@ class PostsContainer extends Component {
       loading: false,
       errorOccured: false
     };
-
-    this.getPosts   = this.getPosts.bind(this);
-    this.searchPost = this.searchPost.bind(this);
-    this.onPostSave = this.onPostSave.bind(this);
   }
 
-  getPosts() {
+  getPosts = () => {
     this.setState({
       loading: true
     });
@@ -46,9 +42,9 @@ class PostsContainer extends Component {
           loading: false
         })
       })
-  }
+  };
 
-  searchPost(event) {
+  searchPost = (event) => {
     let inputValue = event.target.value;
     let filteredData;
 
@@ -70,9 +66,9 @@ class PostsContainer extends Component {
     this.setState({
       filteredData: filteredData
     })
-  }
+  };
 
-  highlightData(str, val) {
+  highlightData = (str, val) => {
     let highlightRegExp = new RegExp(`(${val})`, "gi");
 
     return str
@@ -80,9 +76,9 @@ class PostsContainer extends Component {
       .map((part, idx) =>
         <span key={idx} className={classNames({highlight: part === val})}>{part}</span>
       )
-  }
+  };
 
-  onPostSave(title, body){
+  onPostSave = (title, body) => {
     let newID = this.state.originalData[this.state.originalData.length - 1].id + 1;
     let newRecord = {id: newID, userId: 1, title: title, body: body};
 
@@ -96,7 +92,7 @@ class PostsContainer extends Component {
         ...this.state.filteredData
       ]
     })
-  }
+  };
 
   componentDidMount() {
     this.getPosts();
