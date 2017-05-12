@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import PostsList from './PostsList/PostsList';
-import AddPost from './AddPost';
-import SearchPosts from './SearchPosts';
-import LoadError from './LoadError';
+import PostsList from '../PostsList/PostsList';
+import AddPost from '../AddPost/AddPost';
+import SearchPosts from '../SearchPosts/SearchPosts';
+import LoadError from '../LoadError/LoadError';
 import 'whatwg-fetch';
+import './PostsContainer.scss';
 
 class PostsContainer extends Component {
   constructor(props) {

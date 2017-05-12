@@ -1,6 +1,6 @@
 import React from 'react';
-import './Post.scss';
 import { Panel } from 'react-bootstrap'
+import './Post.scss';
 
 const Posts= props => (
   <Panel className="post" header={props.data.title}>

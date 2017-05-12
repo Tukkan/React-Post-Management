@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.scss';
-import PostsContainer from './components/Posts/PostsContainer'
+import PostsContainer from './components/PostsContainer/PostsContainer'
 import AppHeader from './components/AppHeader/AppHeader'
 import AppFooter from './components/AppFooter/AppFooter'
 import logo from './assets/img/logo.svg';

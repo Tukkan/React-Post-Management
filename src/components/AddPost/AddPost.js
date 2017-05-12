@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
+import './AddPost.scss';
 
 class AddPost extends Component {
   constructor(props){
