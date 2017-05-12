@@ -7,6 +7,7 @@ import LoadError from '../LoadError/LoadError';
 import 'whatwg-fetch';
 import classNames from 'classnames';
 import './PostsContainer.scss';
+import { API_URL } from '../../constants.js'
 
 class PostsContainer extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class PostsContainer extends Component {
       loading: true
     });
 
-    fetch('http://jsonplaceholder.typicode.com/posts')
+    fetch(API_URL)
       .then((data) => data.json())
       .then((json) => {
         let jsonReversed = json.reverse();
