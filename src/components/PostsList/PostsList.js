@@ -4,20 +4,25 @@ import Post from '../Post/Post';
 import { Glyphicon } from 'react-bootstrap'
 import './PostsList.scss'
 
+const renderPostList = function(data) {
+  return data.map((postData, index) => <Post key={index} data={postData} />);
+};
+
+const renderError = function(isLoading) {
+  if(isLoading){
+    return (
+      <div className="loading">
+        <Glyphicon className="glyphicon-refresh-animate" glyph="refresh" />
+      </div>
+    )
+  }
+}
+
+
 const PostsList = props => (
     <div className="postList">
-    { props.loading &&
-      <div className="loading">
-          <Glyphicon className="glyphicon-refresh-animate" glyph="refresh" />
-      </div>
-    }
-    {
-      props.data.map(function(postData, index){
-        return (
-          <Post key={index} data={postData} />
-        )
-      })
-    }
+      { renderError() }
+      { renderPostList(props.data) }
     </div>
 );
 

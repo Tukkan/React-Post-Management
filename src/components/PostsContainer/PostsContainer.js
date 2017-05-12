@@ -5,6 +5,7 @@ import AddPost from '../AddPost/AddPost';
 import SearchPosts from '../SearchPosts/SearchPosts';
 import LoadError from '../LoadError/LoadError';
 import 'whatwg-fetch';
+import classNames from 'classnames';
 import './PostsContainer.scss';
 
 class PostsContainer extends Component {
@@ -60,11 +61,11 @@ class PostsContainer extends Component {
 
     filteredData = this.state.originalData
       .filter((post) => post.title.indexOf(inputValue) > -1 || post.body.indexOf(inputValue) > -1)
-      .map((post) => {return {
+      .map((post) => ({
         ...post,
         title: this.highlightData(post.title, inputValue),
         body: this.highlightData(post.body, inputValue),
-      }});
+      }));
 
     this.setState({
       filteredData: filteredData
@@ -72,12 +73,12 @@ class PostsContainer extends Component {
   }
 
   highlightData(str, val) {
-    let highlightRegExp = new RegExp("("+val+")", "gi");
+    let highlightRegExp = new RegExp(`(${val})`, "gi");
 
     return str
       .split(highlightRegExp)
       .map((part, idx) =>
-        <span key={idx} className={ part === val ? "highlight" : ""}>{part}</span>
+        <span key={idx} className={classNames({highlight: part === val})}>{part}</span>
       )
   }
 
