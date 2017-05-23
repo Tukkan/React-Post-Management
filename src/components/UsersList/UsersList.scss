@@ -1,0 +1,23 @@
+.usersList {
+  background: #a3ddec;
+  padding: 0 10px 10px;
+  border: 1px solid #2d6ca3;
+
+  .inputs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    label {
+      width: 25%;
+      min-width: 25%;
+      word-wrap: break-word;
+      word-break: break-all;
+      font-weight: normal;
+
+      input[type=radio] {
+        margin-right: 10px;
+      }
+    }
+  }
+}

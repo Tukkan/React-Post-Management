@@ -1,0 +1,35 @@
+.editPostForm {
+  margin: 20px 0;
+  padding: 10px;
+  background: #c8eaf3;
+  border: 1px solid #2d6ca3;
+
+  & > div {
+    margin:10px 0;
+  }
+
+  input, textarea {
+    padding: 10px;
+    border: 1px solid #2c6a9f;
+  }
+
+  input {
+    min-width: 250px;
+  }
+
+  textarea {
+    height: 100px;
+    min-width: 350px;
+  }
+
+  div.invalidValue {
+    color:red;
+  }
+
+  .buttons {
+    button {
+      margin-right: 10px;
+      min-width: 150px;
+    }
+  }
+}

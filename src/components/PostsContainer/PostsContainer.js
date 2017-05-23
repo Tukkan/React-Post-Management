@@ -7,7 +7,7 @@ import LoadError from '../LoadError/LoadError';
 import 'whatwg-fetch';
 import classNames from 'classnames';
 import './PostsContainer.scss';
-import { API_URL } from '../../constants.js'
+import PostsStore from '../../stores/PostsStore';
 
 class PostsContainer extends Component {
   constructor(props) {
@@ -16,33 +16,45 @@ class PostsContainer extends Component {
     this.state = {
       originalData: [],
       filteredData: [],
-      loading: false,
+      loading: true,
       errorOccured: false
     };
+  }
+
+  componentDidMount() {
+    /*
+      OK, moglem wspoldzielic dane w routerze, przez this.props.routes
+      i trzymac dane w polu statycznym ale wpadlem na to jak eventy juz byly gotowe.
+      Moglem tez uzyc this.refs ale nie podoba mi sie to ;)
+    */
+
+    PostsStore.emitter.addListener("push", (data) => {
+      this.setState({
+        originalData: data,
+        filteredData: data.slice(),
+        loading: false,
+        errorOccured: false
+      })
+    });
+
+    PostsStore.emitter.addListener("loadError", () => {
+      this.setState({
+        errorOccured: true,
+        loading: false
+      })
+    });
+
+    PostsStore.getPosts();
+  }
+
+  componentWillUnmount() {
+    PostsStore.emitter.removeAllListeners();
   }
 
   getPosts = () => {
     this.setState({
       loading: true
     });
-
-    fetch(API_URL)
-      .then((data) => data.json())
-      .then((json) => {
-        let jsonReversed = json.reverse();
-        this.setState({
-          originalData: jsonReversed,
-          filteredData: jsonReversed.slice(),
-          loading: false,
-          errorOccured: false
-        })
-      })
-      .catch((err) => {
-        this.setState({
-          errorOccured: true,
-          loading: false
-        })
-      })
   };
 
   searchPost = (event) => {
@@ -94,10 +106,10 @@ class PostsContainer extends Component {
       ]
     })
   };
-
-  componentDidMount() {
-    this.getPosts();
-  }
+  //
+  // componentDidMount() {
+  //   this.getPosts();
+  // }
 
   render() {
     return (
