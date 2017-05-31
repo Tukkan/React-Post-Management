@@ -91,13 +91,9 @@ class PostsStore {
   };
 
   removePost = (postId) => {
-    let shouldRemove = confirm(`Are you sure to remove post with id: "${postId}"`);
-
-    if(shouldRemove){
       let idx = this._data.findIndex((elem) => elem.id === postId);
       this._data.splice(idx, 1);
       this.emitter.emit("push", this._data);
-    }
   }
 }
 
