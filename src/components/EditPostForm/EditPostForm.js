@@ -12,7 +12,6 @@ class EditPostForm extends Component {
 
     if(this.props.postId){
       post = PostsStore.getPost(this.props.postId);
-      console.log("POST", post, !!post)
     }
 
     this.initialState = {
@@ -37,8 +36,6 @@ class EditPostForm extends Component {
   onSubmit = () => {
     let isValid = this.validate();
     let postData = {};
-
-    console.log(this.state.isAdd);
 
     if(isValid){
       postData = {

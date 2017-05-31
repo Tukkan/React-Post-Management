@@ -14,9 +14,8 @@ class Comment extends Component {
   }
 
   componentDidMount() {
-    console.log("MOUNTED COMMENT")
-    var emitter = new EventEmitter();
-    emitter.addListener('yep', function() { console.log("RECEIVED EVENT"); });
+    let emitter = new EventEmitter();
+    emitter.addListener('yep', function() { });
   }
 
   render() {

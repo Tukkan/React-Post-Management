@@ -34,9 +34,7 @@ class EditPostContainer extends Component {
   };
 
   componentDidMount() {
-    PostsStore.emitter.addListener('saveupdateerror', () => {
-      console.log("ERROR")
-    });
+    PostsStore.emitter.addListener('saveupdateerror', () => {});
   }
 
   onFormSave = () => {
