@@ -53,6 +53,10 @@ class EditPostForm extends Component {
         postData.id = parseInt(this.props.postId, 10);
         PostsStore.updatePost(postData);
       }
+
+      if(this.props.onSave){
+        this.props.onSave();
+      }
     }
   };
 
@@ -67,7 +71,10 @@ class EditPostForm extends Component {
   };
 
   cancel = () => {
-    this.setState({...this.initialState})
+    this.setState({...this.initialState});
+    if(this.props.onCancel){
+      this.props.onCancel();
+    }
   };
 
   handleInputChange = (event) => {

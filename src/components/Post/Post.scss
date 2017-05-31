@@ -2,4 +2,13 @@
   .highlight {
     background: greenyellow;
   }
+
+  .buttons {
+    padding:0 10px 10px;
+    text-align: right;
+
+    .btn {
+      margin-left: 10px;
+    }
+  }
 }

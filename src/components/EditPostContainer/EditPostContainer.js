@@ -3,7 +3,6 @@ import { API_URL } from '../../constants.js';
 import 'whatwg-fetch';
 import CommentList from '../CommentList/CommentList'
 import EditPostForm from '../EditPostForm/EditPostForm';
-import { Link } from 'react-router'
 import Breadcrumbs from 'react-breadcrumbs';
 import PostsStore from '../../stores/PostsStore';
 
@@ -19,7 +18,6 @@ class EditPostContainer extends Component {
       comments: [],
       postId: this.props.routeParams.id
     };
-
   }
 
   loadComments = () => {
@@ -41,6 +39,14 @@ class EditPostContainer extends Component {
     });
   }
 
+  onFormSave = () => {
+    this.props.router.push('/posts');
+  };
+
+  onFormCancel = () => {
+    this.props.router.push('/posts');
+  };
+
   render() {
     return (
       <div className="editPostContainer">
@@ -50,7 +56,7 @@ class EditPostContainer extends Component {
         />
 
         <h3>Edit/Insert Post</h3>
-        <EditPostForm postId={this.state.postId} />
+        <EditPostForm postId={this.state.postId} onSave={this.onFormSave} onCancel={this.onFormCancel} />
         <CommentList data={this.state.comments} />
       </div>
     )

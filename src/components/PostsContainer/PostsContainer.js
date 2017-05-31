@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import PostsList from '../PostsList/PostsList';
-import AddPost from '../AddPost/AddPost';
+import { Link } from 'react-router'
 import SearchPosts from '../SearchPosts/SearchPosts';
 import LoadError from '../LoadError/LoadError';
 import 'whatwg-fetch';
@@ -119,7 +119,7 @@ class PostsContainer extends Component {
             <SearchPosts onChange={this.searchPost} />
           </Col>
           <Col xs={12} sm={9} className="text-right">
-            <AddPost onSave={this.onPostSave} />
+            <Link className="btn btn-primary" to="posts/add/">Add Post</Link>
           </Col>
         </Row>
         <PostsList loading={this.state.loading} data={this.state.filteredData} />

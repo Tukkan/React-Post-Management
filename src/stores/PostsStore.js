@@ -51,6 +51,8 @@ class PostsStore {
       body: postData
     }).then((resp) => {
       if(resp.ok){
+        postData.id = this._data[0].id + 1;
+
         this._data.unshift(postData);
         this.emitter.emit('push', this._data);
       } else {
@@ -66,7 +68,14 @@ class PostsStore {
 
     if(!post) console.warn("[UPDATE POST] Post has not been found");
 
-    fetch(API_URL, {
+    //Dla stworzonych przez nas postów nie da się robić requestów do API ze względu na błędne id
+    if(post.id > 100){
+      Object.assign(post, postData);
+      this.emitter.emit('push', this._data);
+      return;
+    }
+
+    fetch(`${API_URL}/${post.id}`, {
       method: 'PUT',
       body: postData
     }).then((resp) => {
@@ -82,14 +91,13 @@ class PostsStore {
   };
 
   removePost = (postId) => {
-    let shouldRemove = confirm(`Are you sure to remove post with id: \"${postId}\"`);
+    let shouldRemove = confirm(`Are you sure to remove post with id: "${postId}"`);
 
     if(shouldRemove){
       let idx = this._data.findIndex((elem) => elem.id === postId);
       this._data.splice(idx, 1);
       this.emitter.emit("push", this._data);
     }
-
   }
 }
 

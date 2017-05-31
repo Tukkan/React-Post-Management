@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap'
 import { Link } from 'react-router'
-import PropTypes from 'prop-types';
 import './Post.scss';
 import PostsStore from '../../stores/PostsStore';
 

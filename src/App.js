@@ -25,6 +25,7 @@ class App extends Component {
         <AppHeader logoSrc={this.state.logoSrc} />
 
         <Router history={hashHistory}>
+          <Route path="/" component={PostsContainer} />
           <Route path="posts" name="Posts">
             <IndexRoute component={PostsContainer} />
             <Route name="Add Post"  path="add" component={EditPostContainer} />}  />
